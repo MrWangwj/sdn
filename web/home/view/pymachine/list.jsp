@@ -47,7 +47,7 @@
                                         <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm:ss"/>
                                     </td>
                                     <td>
-                                        <button class="layui-btn layui-btn-warm layui-btn-xs">查看</button>
+                                        <a href="${ pageContext.request.contextPath }/Pymachine/PymachineInfoServlet?id=${pymachine.id}"><button class="layui-btn layui-btn-warm layui-btn-xs">查看</button></a>
                                     </td>
                                 </tr>
                             </c:forEach>

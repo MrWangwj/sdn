@@ -1,0 +1,37 @@
+package com.sdn.servlet.vrmachines;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+
+import com.sdn.model.Vrmachine;
+import com.sdn.service.VrmachineService;
+@WebServlet(name = "DeleteServlet")
+public class DeleteServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request,response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String id = request.getParameter("id");
+
+        Vrmachine vrmachine = new Vrmachine();
+        vrmachine.setId(Integer.parseInt(id));
+        VrmachineService vrmachineService = new VrmachineService();
+        System.out.println("vid="+vrmachine.getId());
+        try {
+            vrmachineService.delete(vrmachine);
+            request.setAttribute("msg", "删除成功！");
+            request.getRequestDispatcher("/home/pymachine/get?id=1").forward(request, response);
+        } catch (SQLException e) {
+
+            request.setAttribute("msg", "删除失败！");
+            request.getRequestDispatcher("/home/pymachine/get?id=1").forward(request, response);
+        }
+
+    }
+}

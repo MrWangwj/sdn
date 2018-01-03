@@ -9,19 +9,41 @@ import java.util.List;
 import java.sql.SQLException;
 
 public class PymachineDao {
+    private  String table = "pymachines";
+    private QueryRunner query;
+
+    public PymachineDao(){
+        this.query = new QueryRunner(JDBCUtils.getDataSource());
+    }
+
+    public Pymachine getPymachineById(int id) throws SQLException{
+        String sql = "select * from "+this.table+" where id=?";
+        return this.query.query(sql, new BeanHandler<Pymachine>(Pymachine.class), id);
+    }
+
+    public void update(Pymachine pymachine) throws SQLException{
+        String sql = "update "+ this.table+" set name=?,cpu=?,ram=?,power=? where id=?;";
+        Object[] params = {
+                pymachine.getName(),
+                pymachine.getCpu(),
+                pymachine.getRam(),
+                pymachine.getPower(),
+                pymachine.getId()
+        };
+        this.query.update(sql, params);
+    }
+
     public int addPymachine(Pymachine pymachine) throws SQLException {
-        QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());//和数据库建立链接
         String sql = " insert into pymachines(name,cpu,ram,power,created_at) values(?,?,?,?,?) ";
         System.out.println(pymachine.getName());
         Object[] params = {pymachine.getName(),pymachine.getCpu(),pymachine.getRam(),pymachine.getPower(),System.currentTimeMillis()};
-        return queryRunner.update(sql, params);
+        return query.update(sql, params);
     }
 
     public List<Pymachine> getPymachines() throws SQLException {
-        QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());//和数据库建立链接
         String sql = " select * from pymachines  ";
         Object[] params = {};
-        List<Pymachine> list = (List<Pymachine>)queryRunner.query(sql, new BeanListHandler<Pymachine>(Pymachine.class),params);
+        List<Pymachine> list = (List<Pymachine>) query.query(sql, new BeanListHandler<Pymachine>(Pymachine.class), params);
         return list;
     }
 }

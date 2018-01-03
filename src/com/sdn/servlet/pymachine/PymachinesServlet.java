@@ -1,8 +1,7 @@
-package com.sdn.servlet.Pymachine;
+package com.sdn.servlet.pymachine;
 
 import com.sdn.model.Pymachine;
 import com.sdn.service.PymachineService;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +27,6 @@ public class PymachinesServlet extends HttpServlet {
             String result=jsonArray.toString();
             response.getWriter().write(result);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

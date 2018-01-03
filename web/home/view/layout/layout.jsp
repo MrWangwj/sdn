@@ -67,6 +67,7 @@
         © <a href="http://www.marchsoft.cn">三月软件</a>
     </div>
 </div>
+<script src="${ pageContext.request.contextPath }/home/vender/jquery/jquery-3.2.1.min.js"></script>
 <script src="${ pageContext.request.contextPath }/home/vender/layui/layui/layui.js"></script>
 <script src="${ pageContext.request.contextPath }/home/js/jquery-3.2.1.min.js"></script>
 <script>
@@ -80,4 +81,8 @@
 
 </rapid:block>
 </body>
+
+<rapid:block name="msgmodal">
+
+</rapid:block>
 </html>

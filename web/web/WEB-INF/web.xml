@@ -15,21 +15,31 @@
 
     <servlet>
         <servlet-name>AddPymachineServlet</servlet-name>
-        <servlet-class>com.sdn.servlet.Pymachine.AddPymachineServlet</servlet-class>
+        <servlet-class>com.sdn.servlet.pymachine.AddPymachineServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>AddPymachineServlet</servlet-name>
-        <url-pattern>/Pymachine/AddPymachineServlet</url-pattern>
+        <url-pattern>/pymachine/AddPymachineServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>PymachinesServlet</servlet-name>
-        <servlet-class>com.sdn.servlet.Pymachine.PymachinesServlet</servlet-class>
+        <servlet-class>com.sdn.servlet.pymachine.PymachinesServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>PymachinesServlet</servlet-name>
-        <url-pattern>/Pymachine/PymachinesServlet</url-pattern>
+        <url-pattern>/pymachine/PymachinesServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PymachineInfoServlet</servlet-name>
+        <servlet-class>com.sdn.servlet.pymachine.PymachineInfoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PymachineInfoServlet</servlet-name>
+        <url-pattern>/pymachine/PymachineInfoServlet</url-pattern>
     </servlet-mapping>
 </web-app>

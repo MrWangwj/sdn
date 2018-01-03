@@ -1,4 +1,4 @@
-package com.sdn.servlet.Pymachine;
+package com.sdn.servlet.pymachine;
 
 import com.sdn.model.Pymachine;
 import com.sdn.service.PymachineService;
