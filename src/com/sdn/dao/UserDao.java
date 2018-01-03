@@ -20,7 +20,7 @@ public class UserDao {
 
     public User login(User user) throws SQLException {
         QueryRunner queryRunner = new QueryRunner(JDBCUtils.getDataSource());//和数据库建立链接
-        String sql = " select * from users where username=? and password=? ";
+        String sql = " select * from user where account=? and password=? ";
         Object[] params = {user.getAccount(), user.getPassword()};
 
         User u = queryRunner.query(sql, new BeanHandler<User>(User.class), params);

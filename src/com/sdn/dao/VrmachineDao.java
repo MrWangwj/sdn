@@ -24,4 +24,10 @@ public class VrmachineDao {
         return this.query.query(sql, new BeanListHandler<Vrmachine>(Vrmachine.class), id);
     }
 
+    public int delete(Vrmachine vrmachine) throws SQLException {
+
+        String sql = "delete from "+this.table+" where id =?";
+        System.out.println(sql+""+vrmachine.getId());
+        return this.query.update(sql,vrmachine.getId());
+    }
 }
