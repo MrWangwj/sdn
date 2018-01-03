@@ -12,6 +12,9 @@
         </rapid:block>
     </title>
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/home/vender/layui/layui/css/layui.css">
+    <rapid:block name="css">
+
+    </rapid:block>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -36,13 +39,15 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item"><a href="${ pageContext.request.contextPath }/home/view/pymachine/list.jsp">设备管理</a></li>
+
                 <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">设备管理</a>
-                    <%--<dl class="layui-nav-child">--%>
-                        <%--<dd><a href="javascript:;"></a></dd>--%>
-                    <%--</dl>--%>
+                    <a class="" href="javascript:;">test</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">1111</a></dd>
+                    </dl>
                 </li>
-                <li class="layui-nav-item"><a href="javascript:;">设置</a></li>
+
             </ul>
         </div>
     </div>
@@ -68,5 +73,9 @@
         var element = layui.element;
     });
 </script>
+
+<rapid:block name="js">
+
+</rapid:block>
 </body>
 </html>
