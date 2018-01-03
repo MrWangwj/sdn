@@ -13,7 +13,6 @@ public class UserDao {
 
     private QueryRunner query;
 
-
     public UserDao() {
         this.query = new QueryRunner(JDBCUtils.getDataSource());
     }
