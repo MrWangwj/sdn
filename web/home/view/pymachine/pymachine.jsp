@@ -108,7 +108,7 @@
                         </td>
                         <td>
                             <button class="layui-btn layui-btn-normal layui-btn-xs">编辑</button>
-                            <button class="layui-btn layui-btn-danger layui-btn-xs">删除</button>
+                            <button class="layui-btn layui-btn-danger layui-btn-xs"><a href="${pageContext.request.contextPath }/DeleteServlet?id=1">删除</a></button>
                         </td>
                     </tr>
                 </c:forEach>

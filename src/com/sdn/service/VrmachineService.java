@@ -18,4 +18,8 @@ public class VrmachineService {
     public List<Vrmachine> getVrmachinesByPymachineId(int id) throws SQLException{
         return this.vrmachineDao.getVrmachineByPymachineId(id);
     }
+
+    public int delete(Vrmachine vrmachine) throws SQLException {
+        return vrmachineDao.delete(vrmachine) ;
+    }
 }

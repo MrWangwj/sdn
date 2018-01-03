@@ -32,7 +32,7 @@
                 <h2>Login</h2>
                 <div class="form-group">
                     <label for="username" class="sr-only">用户名</label>
-                    <input type="text" class="form-control" id="username" name= "username"placeholder="Username" autocomplete="off">
+                    <input type="text" class="form-control" id="username" name= "account"placeholder="Username" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="password" class="sr-only">密码</label>

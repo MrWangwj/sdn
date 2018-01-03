@@ -20,11 +20,22 @@
     </servlet>
 
 
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>com.sdn.servlet.vrmachines.DeleteServlet</servlet-class>
+    </servlet>
+
+
+
+
+
+
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
+
 
     <servlet-mapping>
         <servlet-name>PymachineInfoServlet</servlet-name>
@@ -36,5 +47,10 @@
     </servlet-mapping>
 
 
+
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/DeleteServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>

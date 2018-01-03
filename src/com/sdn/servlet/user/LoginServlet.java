@@ -20,17 +20,20 @@ public class LoginServlet extends javax.servlet.http.HttpServlet {
         user.setPassword(password);//设置密码
         UserService userService= new UserService();
         User u;
+        System.out.println(account);
+        System.out.println(password);
         try {
             u = userService.login(user);
             //页面跳转
             if(u!=null){
-
+                System.out.println(11);
                 request.getSession().setAttribute("user", u);//将查询到的user对象放入session域中
-                request.getRequestDispatcher("/back/index.jsp").forward(request, response);
+                request.getRequestDispatcher("/home/view/index.jsp").forward(request, response);
             }else{
+                System.out.println(1);
 
                 request.setAttribute("msg", "您输入的用户名或密码有误");
-                request.getRequestDispatcher("/back/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/home/view/login.jsp").forward(request, response);
             }
         } catch (SQLException e) {
             e.printStackTrace();
