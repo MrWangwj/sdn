@@ -1,5 +1,6 @@
 <%@ taglib prefix="rapid" uri="http://www.rapid-framework.org.cn/rapid" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <rapid:override name="css">
     <style>
@@ -91,6 +92,8 @@
                 </thead>
                 <tbody>
 
+
+
                 <c:forEach var="vrmachine" items="${ vrmachines }">
                     <tr>
                         <td>${ vrmachine.id }</td>
@@ -98,7 +101,12 @@
                         <td>${ vrmachine.cpu }</td>
                         <td>${ vrmachine.ram }</td>
                         <td>${ vrmachine.power}</td>
-                        <td>${ vrmachine.created_at }</td>
+                        <td>
+                            <jsp:useBean id="dateValue" class="java.util.Date"/>
+                            <jsp:setProperty name="dateValue" property="time" value="${vrmachine.created_at}"/>
+                            <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                        </td>
                         <td>
                             <select>
                                 <option value="0" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
@@ -259,17 +267,7 @@
                         power: $('#power').val()
                     },
                     function (data) {
-                        var obj = JSON.parse(data)[0];
-
-                        if(obj.code === 1){
-                            layer.msg(obj.msg, {icon: 1}, function () {
-                                window.location.reload();
-                            });
-                        }else{
-                            layer.msg(obj.msg, {icon: 5});
-                        }
-
-
+                        returnData(data);
                     }
                 );
             });
@@ -292,17 +290,28 @@
         function addVr() {
 
             $.post(
-                '${ pageContext.request.contextPath }/',
+                '${ pageContext.request.contextPath }/vrmachine/add',
                 {
+                    py_id: ${ param.id },
                     name: $('#vrName').val(),
                     cpu: $('#vrCpu').val(),
                     ram: $('#vrRam').val()
                 },
                 function (data) {
-                    var obj = JSON.parse(obj)[0];
-                    console.log(obj);
+                    returnData(data);
                 }
             );
+        }
+
+        function returnData(date) {
+            var obj = JSON.parse(date)[0];
+            if(obj.code === 1){
+                layer.msg(obj.msg, {icon: 1}, function () {
+                    window.location.reload();
+                });
+            }else{
+                layer.msg(obj.msg, {icon: 5});
+            }
         }
     </script>
 </rapid:override>

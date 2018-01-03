@@ -22,4 +22,12 @@ public class VrmachineService {
     public int delete(Vrmachine vrmachine) throws SQLException {
         return vrmachineDao.delete(vrmachine) ;
     }
+
+    public void create(Vrmachine vrmachine)throws SQLException{
+        this.vrmachineDao.create(vrmachine);
+    }
+
+    public Vrmachine getSumVermachine(int pr_id) throws SQLException{
+        return this.vrmachineDao.getSumVermachine(pr_id);
+    }
 }

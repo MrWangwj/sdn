@@ -24,7 +24,10 @@
         <servlet-name>DeleteServlet</servlet-name>
         <servlet-class>com.sdn.servlet.vrmachines.DeleteServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>AddVrServlet</servlet-name>
+        <servlet-class>com.sdn.servlet.vrmachines.AddVrServlet</servlet-class>
+    </servlet>
 
 
 
@@ -52,5 +55,8 @@
         <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/DeleteServlet</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>AddVrServlet</servlet-name>
+        <url-pattern>/vrmachine/add</url-pattern>
+    </servlet-mapping>
 </web-app>
