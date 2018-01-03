@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <rapid:override name="css">
-    <link rel="stylesheet" href="${ pageContext.request.contextPath }/home/vender/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </rapid:override>
 
 <rapid:override name="title">
@@ -127,31 +126,11 @@
     </div>
 
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="addVrmachineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </rapid:override>
 
 <rapid:override name="js">
     <script src="${ pageContext.request.contextPath }/home/vender/layui/layui/lay/modules/layer.js"></script>
     <script src="${ pageContext.request.contextPath }/home/vender/echarts/echarts.min.js"></script>
-    <script src="${ pageContext.request.contextPath }/home/vender/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script>
         window.onload = function () {
             var  vrmachineNames = [];
