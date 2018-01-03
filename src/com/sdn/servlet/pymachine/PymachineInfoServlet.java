@@ -29,7 +29,7 @@ public class PymachineInfoServlet extends HttpServlet {
 
             request.setAttribute("pymachine", pymachine);
             request.setAttribute("vrmachines", vrmachines);
-            System.out.println("1111");
+
             request.getRequestDispatcher("/home/view/pymachine/pymachine.jsp").forward(request, response);
         }catch (Exception e){
             e.printStackTrace();

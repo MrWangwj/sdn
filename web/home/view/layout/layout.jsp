@@ -79,4 +79,8 @@
 
 </rapid:block>
 </body>
+
+<rapid:block name="msgmodal">
+
+</rapid:block>
 </html>

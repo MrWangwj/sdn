@@ -23,4 +23,17 @@ public class PymachineDao {
         String sql = "select * from "+this.table+" where id=?";
         return this.query.query(sql, new BeanHandler<Pymachine>(Pymachine.class), id);
     }
+
+    public void update(Pymachine pymachine) throws SQLException{
+        String sql = "update "+ this.table+" set name=?,cpu=?,ram=?,power=? where id=?;";
+        Object[] params = {
+                pymachine.getName(),
+                pymachine.getCpu(),
+                pymachine.getRam(),
+                pymachine.getPower(),
+                pymachine.getId()
+        };
+
+        this.query.update(sql, params);
+    }
 }

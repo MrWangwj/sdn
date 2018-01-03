@@ -20,7 +20,10 @@ public class VrmachineDao {
 
     //  通过物理机ID获取虚拟机
     public List<Vrmachine> getVrmachineByPymachineId(int id) throws SQLException{
-        String sql = "select * from " + this.table + " where pymachine_id=?";
+
+        String sql = "select "+this.table
+                +".*, powers.power as power from " + this.table + " inner join powers on "
+                +this.table+".status=powers.id where "+this.table+".pymachine_id=?";
         return this.query.query(sql, new BeanListHandler<Vrmachine>(Vrmachine.class), id);
     }
 

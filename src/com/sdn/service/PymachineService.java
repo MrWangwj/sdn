@@ -17,4 +17,8 @@ public class PymachineService {
     public Pymachine getPymachineById(int id) throws SQLException{
         return this.pymachineDao.getPymachineById(id);
     }
+
+    public void update(Pymachine pymachine) throws SQLException{
+        this.pymachineDao.update(pymachine);
+    }
 }
