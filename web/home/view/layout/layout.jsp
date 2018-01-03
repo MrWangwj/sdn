@@ -5,6 +5,7 @@
 <head>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>
         SDN水下传感器节点虚拟化管理系统
         <rapid:block name="title">
@@ -68,6 +69,7 @@
 </div>
 <script src="${ pageContext.request.contextPath }/home/vender/jquery/jquery-3.2.1.min.js"></script>
 <script src="${ pageContext.request.contextPath }/home/vender/layui/layui/layui.js"></script>
+<script src="${ pageContext.request.contextPath }/home/js/jquery-3.2.1.min.js"></script>
 <script>
     //JavaScript代码区域
     layui.use('element', function(){
