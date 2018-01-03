@@ -53,15 +53,15 @@
 </div>
 
 <!-- jQuery -->
-<script src="${pageContext.request.contextPath }/back/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath }/home/vender/jquery/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap -->
-<script src="${pageContext.request.contextPath }/back/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath }/home/vender/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <!-- Placeholder -->
-<script src="${pageContext.request.contextPath }/back/js/jquery.placeholder.min.js"></script>
+<script src="${pageContext.request.contextPath }/home/vender/jquery/jquery.placeholder.min.js"></script>
 <!-- Waypoints -->
-<script src="${pageContext.request.contextPath }/back/js/jquery.waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath }/home/vender/jquery/jquery.waypoints.min.js"></script>
 <!-- Main JS -->
-<script src="${pageContext.request.contextPath }/back/js/main.js"></script>
+<script src="${pageContext.request.contextPath }/home/js/main.js"></script>
 
 </body>
 </html>
