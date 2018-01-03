@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <rapid:override name="css">
-
+    <link rel="stylesheet" href="${ pageContext.request.contextPath }/home/vender/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </rapid:override>
 
 <rapid:override name="title">
@@ -66,7 +66,7 @@
                 <h1>虚拟机列表</h1>
             </div>
             <div class="layui-col-md3">
-                <button style="float: right" class="layui-btn">添加</button>
+                <button style="float: right" class="layui-btn" data-toggle="modal" data-target="#addVrmachineModal">添加</button>
             </div>
         </div>
 
@@ -125,111 +125,133 @@
         </div>
 
     </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addVrmachineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </rapid:override>
 
 <rapid:override name="js">
+    <script src="${ pageContext.request.contextPath }/home/vender/layui/layui/lay/modules/layer.js"></script>
     <script src="${ pageContext.request.contextPath }/home/vender/echarts/echarts.min.js"></script>
+    <script src="${ pageContext.request.contextPath }/home/vender/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script>
-
         window.onload = function () {
-            var  vrmachineName = [];
+            var  vrmachineNames = [];
             var cpuChartDate = [],ramChartDate = [],powerChartDate = [];
+            var restCpu = ${ pymachine.cpu }, restRam = ${ pymachine.ram },restPower = ${ pymachine.power } ;
+
+            <c:forEach var="vrmachine" items="${ vrmachines }">
+                vrmachineNames.push("${ vrmachine.name }");
+                cpuChartDate.push({value: ${ vrmachine.cpu }, name: "${ vrmachine.name }"});
+                ramChartDate.push({value: ${ vrmachine.ram }, name: "${ vrmachine.name }"});
+                powerChartDate.push({value: ${ vrmachine.power }, name: "${ vrmachine.name }"});
+
+                restCpu -= ${ vrmachine.cpu };
+                restRam -= ${ vrmachine.ram };
+                restPower -= ${ vrmachine.power };
+
+            </c:forEach>
+
+            vrmachineNames.push("剩余");
+            cpuChartDate.push({value: restCpu, name: "剩余"});
+            ramChartDate.push({value: restRam, name: "剩余"});
+            powerChartDate.push({value: restPower, name: "剩余"});
+
+            var cpuOption = {
+                    title : {
+                        text: 'CPU占用比例图'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        top: 40,
+                        orient: 'vertical',
+                        left: 'right',
+                        data: vrmachineNames
+                    },
+                    series : [
+                        {
+                            name: '机器名称',
+                            type: 'pie',
+                            data: cpuChartDate
+                        }
+                    ]
+                },
+                ramOption = {
+                    title : {
+                        text: 'RAM占用比例图'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        top: 40,
+                        orient: 'vertical',
+                        left: 'right',
+                        data: vrmachineNames
+                    },
+                    series : [
+                        {
+                            name: '机器名称',
+                            type: 'pie',
+                            data:ramChartDate
+                        }
+                    ]
+                },
+                powerOption = {
+                    title : {
+                        text: '电量占用比例'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        top: 40,
+                        orient: 'vertical',
+                        left: 'right',
+                        data: vrmachineNames
+                    },
+                    series : [
+                        {
+                            name: '机器名称',
+                            type: 'pie',
+                            data: powerChartDate
+                        }
+                    ]
+                };
+
+            var cpuChart = echarts.init(document.getElementById('cpuChart')),
+                ramChart = echarts.init(document.getElementById('ramChart')),
+                powerChart = echarts.init(document.getElementById('powerChart'));
+
+            cpuChart.setOption(cpuOption);
+            ramChart.setOption(ramOption);
+            powerChart.setOption(powerOption);
+
+
         };
-
-        var cpuOption = {
-                title : {
-                    text: 'CPU占用比例图'
-                },
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                legend: {
-                    top: 40,
-                    orient: 'vertical',
-                    left: 'right',
-                    data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-                },
-                series : [
-                    {
-                        name: '机器名称',
-                        type: 'pie',
-                        data:[
-                            {value:335, name:'直接访问'},
-                            {value:310, name:'邮件营销'},
-                            {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
-                        ],
-                    }
-                ]
-            },
-            ramOption = {
-                title : {
-                    text: 'RAM占用比例图'
-                },
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                legend: {
-                    top: 40,
-                    orient: 'vertical',
-                    left: 'right',
-                    data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-                },
-                series : [
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        data:[
-                            {value:335, name:'直接访问'},
-                            {value:310, name:'邮件营销'},
-                            {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
-                        ],
-                    }
-                ]
-            },
-            powerOption = {
-                title : {
-                    text: '电量占用比例'
-                },
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                legend: {
-                    top: 40,
-                    orient: 'vertical',
-                    left: 'right',
-                    data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-                },
-                series : [
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        data:[
-                            {value:335, name:'直接访问'},
-                            {value:310, name:'邮件营销'},
-                            {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
-                        ]
-                    }
-                ]
-            };
-
-        var cpuChart = echarts.init(document.getElementById('cpuChart')),
-            ramChart = echarts.init(document.getElementById('ramChart')),
-            powerChart = echarts.init(document.getElementById('powerChart'));
-
-        cpuChart.setOption(cpuOption);
-        ramChart.setOption(ramOption);
-        powerChart.setOption(powerOption);
-
-
     </script>
 </rapid:override>
 
