@@ -103,7 +103,7 @@
                         </td>
                         <td>
                             <button class="layui-btn layui-btn-normal layui-btn-xs">编辑</button>
-                            <button class="layui-btn layui-btn-danger layui-btn-xs"><a href="${pageContext.request.contextPath }/DeleteServlet?id=1">删除</a></button>
+                            <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="myDelete(${ vrmachine.id })">删除</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -132,22 +132,23 @@
     <script src="${ pageContext.request.contextPath }/home/vender/layui/layui/lay/modules/layer.js"></script>
     <script src="${ pageContext.request.contextPath }/home/vender/echarts/echarts.min.js"></script>
     <script>
+
         window.onload = function () {
             var  vrmachineNames = [];
             var cpuChartDate = [],ramChartDate = [],powerChartDate = [];
-            var restCpu = ${ pymachine.cpu }, restRam = ${ pymachine.ram },restPower = ${ pymachine.power } ;
+            var restCpu = 64, restRam = 200,restPower = 100 ;
 
-            <c:forEach var="vrmachine" items="${ vrmachines }">
-                vrmachineNames.push("${ vrmachine.name }");
-                cpuChartDate.push({value: ${ vrmachine.cpu }, name: "${ vrmachine.name }"});
-                ramChartDate.push({value: ${ vrmachine.ram }, name: "${ vrmachine.name }"});
-                powerChartDate.push({value: ${ vrmachine.power }, name: "${ vrmachine.name }"});
 
-                restCpu -= ${ vrmachine.cpu };
-                restRam -= ${ vrmachine.ram };
-                restPower -= ${ vrmachine.power };
+            vrmachineNames.push("222");
+            cpuChartDate.push({value: 2, name: "222"});
+            ramChartDate.push({value: 2, name: "222"});
+            powerChartDate.push({value: 0, name: "222"});
 
-            </c:forEach>
+            restCpu -= 2;
+            restRam -= 2;
+            restPower -= 0;
+
+
 
             vrmachineNames.push("剩余");
             cpuChartDate.push({value: restCpu, name: "剩余"});
@@ -231,6 +232,30 @@
 
 
         };
+        function myDelete(id)
+        {
+            layer.confirm('确认删除此虚拟机？', {
+                btn: ['确认','取消'] //按钮
+            }, function(){
+                $.post(
+                    '/DeleteServlet',{id:id},function (data) {
+                        console.log(data)
+                        if (data == "ok") {
+                            layer.msg('删除成功', {icon: 1})
+                            window.location.reload();
+                        }
+                        else {
+                            layer.msg('删除失败', {icon: 2})
+                            setTimeout(function () {
+                                window.location.reload();
+                            },1000);
+
+                    }
+                }
+                );
+            });
+        }
+
     </script>
 </rapid:override>
 
