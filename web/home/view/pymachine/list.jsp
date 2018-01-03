@@ -7,14 +7,14 @@
 </rapid:override>
 
 <rapid:override name="content">
-    <div class="layui-container" id="pymachine" url="${ pageContext.request.contextPath }/Pymachine/PymachinesServlet">
+    <div class="layui-container" id="pymachine" url="${ pageContext.request.contextPath }/home/pymachines">
 
         <div class="layui-row">
             <div class="layui-col-md9">
                 <h1>物理机列表</h1>
             </div>
             <div class="layui-col-md3">
-                <button style="float: right" class="layui-btn" id="add_pumachine" url="${ pageContext.request.contextPath }/Pymachine/AddPymachineServlet">添加</button>
+                <button style="float: right" class="layui-btn" id="add_pumachine" url="${ pageContext.request.contextPath }/pymachine/AddPymachineServlet">添加</button>
             </div>
         </div>
 
@@ -47,7 +47,7 @@
                                         <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm:ss"/>
                                     </td>
                                     <td>
-                                        <a href="${ pageContext.request.contextPath }/Pymachine/PymachineInfoServlet?id=${pymachine.id}"><button class="layui-btn layui-btn-warm layui-btn-xs">查看</button></a>
+                                        <a href="${ pageContext.request.contextPath }/home/pymachine/get?id=${pymachine.id}"><button class="layui-btn layui-btn-warm layui-btn-xs">查看</button></a>
                                     </td>
                                 </tr>
                             </c:forEach>

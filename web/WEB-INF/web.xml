@@ -11,12 +11,20 @@
 
 
     <servlet>
+        <servlet-name>PymachinesServlet</servlet-name>
+        <servlet-class>com.sdn.servlet.pymachine.PymachinesServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PymachineInfoServlet</servlet-name>
         <servlet-class>com.sdn.servlet.pymachine.PymachineInfoServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PyEditServlet</servlet-name>
         <servlet-class>com.sdn.servlet.pymachine.PyEditServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddPymachineServlet</servlet-name>
+        <servlet-class>com.sdn.servlet.pymachine.AddPymachineServlet</servlet-class>
     </servlet>
 
 
@@ -34,12 +42,17 @@
 
 
 
+
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
 
+    <servlet-mapping>
+        <servlet-name>PymachinesServlet</servlet-name>
+        <url-pattern>/home/pymachines</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PymachineInfoServlet</servlet-name>
         <url-pattern>/home/pymachine/get</url-pattern>
@@ -48,7 +61,10 @@
         <servlet-name>PyEditServlet</servlet-name>
         <url-pattern>/home/pymachine/edit</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>AddPymachineServlet</servlet-name>
+        <url-pattern>/pymachine/AddPymachineServlet</url-pattern>
+    </servlet-mapping>
 
 
     <servlet-mapping>
