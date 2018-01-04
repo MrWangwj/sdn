@@ -82,4 +82,17 @@
         <servlet-name>EditVrServlet</servlet-name>
         <url-pattern>/vrmachine/edit</url-pattern>
     </servlet-mapping>
+
+
+
+
+
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.sdn.filter.login.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

@@ -153,10 +153,9 @@
     <script>
 
         window.onload = function () {
-
             var  vrmachineNames = [];
             var cpuChartDate = [],ramChartDate = [],powerChartDate = [];
-            var restCpu = 64, restRam = 200,restPower = 100 ;
+            var restCpu = ${ pymachine.cpu }, restRam = ${ pymachine.ram },restPower = ${ pymachine.power } ;
 
 
 
@@ -164,12 +163,14 @@
                 vrmachineNames.push("${ vrmachine.name }");
                 cpuChartDate.push({value: ${ vrmachine.cpu }, name: "${ vrmachine.name }"});
                 ramChartDate.push({value: ${ vrmachine.ram }, name: "${ vrmachine.name }"});
-
-
                 powerChartDate.push({value: ${ vrmachine.power }, name: "${ vrmachine.name }"});
+
+
+                restCpu -= ${ vrmachine.cpu };
+                restRam -= ${ vrmachine.ram };
+                restPower -= ${ vrmachine.power };
+
             </c:forEach>
-
-
 
             vrmachineNames.push("剩余");
             cpuChartDate.push({value: restCpu, name: "剩余"});
