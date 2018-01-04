@@ -1,9 +1,15 @@
 <%@ taglib prefix="rapid" uri="http://www.rapid-framework.org.cn/rapid" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <rapid:override name="css">
     <style>
         #addVr{
+            width: 500px;
+            margin: 20px auto;
+            display: none;
+        }
+        #editVrModal{
             width: 500px;
             margin: 20px auto;
             display: none;
@@ -91,6 +97,8 @@
                 </thead>
                 <tbody>
 
+
+
                 <c:forEach var="vrmachine" items="${ vrmachines }">
                     <tr>
                         <td>${ vrmachine.id }</td>
@@ -98,7 +106,12 @@
                         <td>${ vrmachine.cpu }</td>
                         <td>${ vrmachine.ram }</td>
                         <td>${ vrmachine.power}</td>
-                        <td>${ vrmachine.created_at }</td>
+                        <td>
+                            <jsp:useBean id="dateValue" class="java.util.Date"/>
+                            <jsp:setProperty name="dateValue" property="time" value="${vrmachine.created_at}"/>
+                            <fmt:formatDate value="${dateValue}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                        </td>
                         <td>
                             <select>
                                 <option value="0" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
@@ -107,8 +120,8 @@
                             </select>
                         </td>
                         <td>
-                            <button class="layui-btn layui-btn-normal layui-btn-xs">编辑</button>
-                            <button class="layui-btn layui-btn-danger layui-btn-xs"><a href="${pageContext.request.contextPath }/DeleteServlet?id=1">删除</a></button>
+                            <button class="layui-btn layui-btn-normal layui-btn-xs" onclick="editVr(${ vrmachine.id }, '${ vrmachine.name }', ${ vrmachine.cpu }, ${ vrmachine.ram })">编辑</button>
+                            <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="myDelete(${ vrmachine.id })">删除</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -138,20 +151,20 @@
     <script src="${ pageContext.request.contextPath }/home/vender/layui/layui/lay/modules/layer.js"></script>
     <script src="${ pageContext.request.contextPath }/home/vender/echarts/echarts.min.js"></script>
     <script>
+
         window.onload = function () {
-
-
             var  vrmachineNames = [];
             var cpuChartDate = [],ramChartDate = [],powerChartDate = [];
             var restCpu = ${ pymachine.cpu }, restRam = ${ pymachine.ram },restPower = ${ pymachine.power } ;
+
+
 
             <c:forEach var="vrmachine" items="${ vrmachines }">
                 vrmachineNames.push("${ vrmachine.name }");
                 cpuChartDate.push({value: ${ vrmachine.cpu }, name: "${ vrmachine.name }"});
                 ramChartDate.push({value: ${ vrmachine.ram }, name: "${ vrmachine.name }"});
-
-
                 powerChartDate.push({value: ${ vrmachine.power }, name: "${ vrmachine.name }"});
+
 
                 restCpu -= ${ vrmachine.cpu };
                 restRam -= ${ vrmachine.ram };
@@ -241,6 +254,30 @@
 
 
         };
+        function myDelete(id)
+        {
+            layer.confirm('确认删除此虚拟机？', {
+                btn: ['确认','取消'] //按钮
+            }, function(){
+                $.post(
+                    '/DeleteServlet',{id:id},function (data) {
+                        console.log(data)
+                        if (data == "ok") {
+                            layer.msg('删除成功', {icon: 1})
+                            window.location.reload();
+                        }
+                        else {
+                            layer.msg('删除失败', {icon: 2})
+                            setTimeout(function () {
+                                window.location.reload();
+                            },1000);
+
+                    }
+                }
+                );
+            });
+        }
+
     </script>
 
     <script>
@@ -259,17 +296,7 @@
                         power: $('#power').val()
                     },
                     function (data) {
-                        var obj = JSON.parse(data)[0];
-
-                        if(obj.code === 1){
-                            layer.msg(obj.msg, {icon: 1}, function () {
-                                window.location.reload();
-                            });
-                        }else{
-                            layer.msg(obj.msg, {icon: 5});
-                        }
-
-
+                        returnData(data);
                     }
                 );
             });
@@ -292,17 +319,62 @@
         function addVr() {
 
             $.post(
-                '${ pageContext.request.contextPath }/',
+                '${ pageContext.request.contextPath }/vrmachine/add',
                 {
+                    py_id: ${ param.id },
                     name: $('#vrName').val(),
                     cpu: $('#vrCpu').val(),
                     ram: $('#vrRam').val()
                 },
                 function (data) {
-                    var obj = JSON.parse(obj)[0];
-                    console.log(obj);
+                    returnData(data);
                 }
             );
+        }
+
+
+        function editVr(id, name, cpu, ram) {
+            $('#editVrId').val(id);
+            $('#editvrName').val(name);
+            $('#editvrCpu').val(cpu);
+            $('#editvrRam').val(ram);
+
+            layer.open({
+                type: 1,
+                title: "编辑虚拟机",
+                closeBtn: 1,
+                shadeClose: true,
+                skin: '#editVrModal',
+                area: ['600px', '300px'],
+                content: $('#editVrModal')
+            });
+        }
+        
+        function setEditVr() {
+            $.post(
+                '${ pageContext.request.contextPath }/vrmachine/edit',
+                {
+                    py_id: ${ param.id },
+                    id: $('#editVrId').val(),
+                    name: $('#editvrName').val(),
+                    cpu: $('#editvrCpu').val(),
+                    ram: $('#editvrRam').val()
+                },
+                function (data) {
+                    returnData(data);
+                }
+            );
+        }
+
+        function returnData(date) {
+            var obj = JSON.parse(date)[0];
+            if(obj.code === 1){
+                layer.msg(obj.msg, {icon: 1}, function () {
+                    window.location.reload();
+                });
+            }else{
+                layer.msg(obj.msg, {icon: 5});
+            }
         }
     </script>
 </rapid:override>
@@ -339,5 +411,37 @@
             </div>
 
     </div>
+
+    <div id="editVrModal">
+        <input type="hidden" id="editVrId" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input id="editvrName" type="text" placeholder="请输入虚拟机名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">CPU内核</label>
+            <div class="layui-input-block">
+                <input id="editvrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RAM容量</label>
+            <div class="layui-input-block">
+                <input id="editvrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" style="float: right" onclick="setEditVr()">保存</button>
+            </div>
+        </div>
+
+    </div>
+
 </rapid:override>
 <%@include file="../layout/layout.jsp"%>
