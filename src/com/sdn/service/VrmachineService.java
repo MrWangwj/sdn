@@ -35,4 +35,8 @@ public class VrmachineService {
     public void update(Vrmachine vrmachine) throws SQLException{
         this.vrmachineDao.update(vrmachine);
     }
+
+    public  void changeStatus(Vrmachine v) throws SQLException {
+        this.vrmachineDao.changeStatus(v);
+    }
 }

@@ -74,4 +74,13 @@ public class VrmachineDao {
         };
         this.query.update(sql, params);
     }
+    public void changeStatus(Vrmachine v) throws SQLException {
+        String sql = "update "+ this.table+" set status = ? where id=?;";
+        Object[] params = {
+                v.getStatus(),
+                v.getId()
+        };
+        System.out.println(sql+params[0]+params[1]);
+        this.query.update(sql, params);
+    }
 }

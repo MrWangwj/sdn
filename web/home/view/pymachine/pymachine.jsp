@@ -113,10 +113,10 @@
 
                         </td>
                         <td>
-                            <select>
-                                <option value="0" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
-                                <option value="1" <c:if test="${ vrmachine.status == 2 }">selected = "selected"</c:if>>休眠</option>
-                                <option value="2" <c:if test="${ vrmachine.status == 3 }">selected = "selected"</c:if>>激活</option>
+                            <select onchange="myChanges(this,${ vrmachine.id })" id="select">
+                                <option value="1" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
+                                <option value="2" <c:if test="${ vrmachine.status == 2 }">selected = "selected"</c:if>>休眠</option>
+                                <option value="3" <c:if test="${ vrmachine.status == 3 }">selected = "selected"</c:if>>激活</option>
                             </select>
                         </td>
                         <td>
@@ -164,6 +164,10 @@
                 cpuChartDate.push({value: ${ vrmachine.cpu }, name: "${ vrmachine.name }"});
                 ramChartDate.push({value: ${ vrmachine.ram }, name: "${ vrmachine.name }"});
                 powerChartDate.push({value: ${ vrmachine.power }, name: "${ vrmachine.name }"});
+<<<<<<< HEAD
+             </c:forEach>
+            
+=======
 
 
                 restCpu -= ${ vrmachine.cpu };
@@ -172,6 +176,7 @@
 
             </c:forEach>
 
+>>>>>>> 0688d41e98734cf724d8029029e121135750f311
             vrmachineNames.push("剩余");
             cpuChartDate.push({value: restCpu, name: "剩余"});
             ramChartDate.push({value: restRam, name: "剩余"});
@@ -277,7 +282,17 @@
                 );
             });
         }
+        function myChanges(opt,id) {
 
+            var status = $(opt).val()
+            $.post(
+                '${ pageContext.request.contextPath }/vrmachine/change',
+                { py_id: ${ param.id },id:id,status:status},
+                function (data) {
+                   returnData(data);
+                }
+            )
+        }
     </script>
 
     <script>
@@ -315,7 +330,7 @@
             });
 
         }
-        
+
         function addVr() {
 
             $.post(
