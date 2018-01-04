@@ -25,12 +25,12 @@ public class DeleteServlet extends HttpServlet {
         System.out.println("vid="+vrmachine.getId());
         try {
             vrmachineService.delete(vrmachine);
-            request.setAttribute("msg", "删除成功！");
-            request.getRequestDispatcher("/home/pymachine/get?id=1").forward(request, response);
+
+            response.getWriter().write("ok");
+
         } catch (SQLException e) {
 
-            request.setAttribute("msg", "删除失败！");
-            request.getRequestDispatcher("/home/pymachine/get?id=1").forward(request, response);
+            response.getWriter().write("error");
         }
 
     }
