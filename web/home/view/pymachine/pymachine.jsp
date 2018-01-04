@@ -108,7 +108,7 @@
 
                         </td>
                         <td>
-                            <select>
+                            <select onchange="myChange" id="select">
                                 <option value="0" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
                                 <option value="1" <c:if test="${ vrmachine.status == 2 }">selected = "selected"</c:if>>休眠</option>
                                 <option value="2" <c:if test="${ vrmachine.status == 3 }">selected = "selected"</c:if>>激活</option>
@@ -169,7 +169,7 @@
 
                 powerChartDate.push({value: ${ vrmachine.power }, name: "${ vrmachine.name }"});
 
-
+             </c:forEach>
 
 
             vrmachineNames.push("剩余");
@@ -278,6 +278,10 @@
             });
         }
 
+        function myChange() {
+             var a = $("#select").val();
+             console.log(a+"213123");
+        }
     </script>
 
     <script>
@@ -315,7 +319,7 @@
             });
 
         }
-        
+
         function addVr() {
 
             $.post(
