@@ -27,7 +27,12 @@ public class VrmachineService {
         this.vrmachineDao.create(vrmachine);
     }
 
-    public Vrmachine getSumVermachine(int pr_id) throws SQLException{
-        return this.vrmachineDao.getSumVermachine(pr_id);
+    public Vrmachine getSumVermachine(int pr_id, int excludeId) throws SQLException{
+        return this.vrmachineDao.getSumVermachine(pr_id, excludeId);
+    }
+
+
+    public void update(Vrmachine vrmachine) throws SQLException{
+        this.vrmachineDao.update(vrmachine);
     }
 }

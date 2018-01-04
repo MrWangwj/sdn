@@ -9,6 +9,11 @@
             margin: 20px auto;
             display: none;
         }
+        #editVrModal{
+            width: 500px;
+            margin: 20px auto;
+            display: none;
+        }
     </style>
 </rapid:override>
 
@@ -115,7 +120,7 @@
                             </select>
                         </td>
                         <td>
-                            <button class="layui-btn layui-btn-normal layui-btn-xs">编辑</button>
+                            <button class="layui-btn layui-btn-normal layui-btn-xs" onclick="editVr(${ vrmachine.id }, '${ vrmachine.name }', ${ vrmachine.cpu }, ${ vrmachine.ram })">编辑</button>
                             <button class="layui-btn layui-btn-danger layui-btn-xs"><a href="${pageContext.request.contextPath }/DeleteServlet?id=1">删除</a></button>
                         </td>
                     </tr>
@@ -147,7 +152,6 @@
     <script src="${ pageContext.request.contextPath }/home/vender/echarts/echarts.min.js"></script>
     <script>
         window.onload = function () {
-
 
             var  vrmachineNames = [];
             var cpuChartDate = [],ramChartDate = [],powerChartDate = [];
@@ -303,6 +307,40 @@
             );
         }
 
+
+        function editVr(id, name, cpu, ram) {
+            $('#editVrId').val(id);
+            $('#editvrName').val(name);
+            $('#editvrCpu').val(cpu);
+            $('#editvrRam').val(ram);
+
+            layer.open({
+                type: 1,
+                title: "编辑虚拟机",
+                closeBtn: 1,
+                shadeClose: true,
+                skin: '#editVrModal',
+                area: ['600px', '300px'],
+                content: $('#editVrModal')
+            });
+        }
+        
+        function setEditVr() {
+            $.post(
+                '${ pageContext.request.contextPath }/vrmachine/edit',
+                {
+                    py_id: ${ param.id },
+                    id: $('#editVrId').val(),
+                    name: $('#editvrName').val(),
+                    cpu: $('#editvrCpu').val(),
+                    ram: $('#editvrRam').val()
+                },
+                function (data) {
+                    returnData(data);
+                }
+            );
+        }
+
         function returnData(date) {
             var obj = JSON.parse(date)[0];
             if(obj.code === 1){
@@ -348,5 +386,37 @@
             </div>
 
     </div>
+
+    <div id="editVrModal">
+        <input type="hidden" id="editVrId" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input id="editvrName" type="text" placeholder="请输入虚拟机名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">CPU内核</label>
+            <div class="layui-input-block">
+                <input id="editvrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RAM容量</label>
+            <div class="layui-input-block">
+                <input id="editvrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" style="float: right" onclick="setEditVr()">保存</button>
+            </div>
+        </div>
+
+    </div>
+
 </rapid:override>
 <%@include file="../layout/layout.jsp"%>
