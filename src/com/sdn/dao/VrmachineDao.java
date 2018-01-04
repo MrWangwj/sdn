@@ -38,6 +38,8 @@ public class VrmachineDao {
     public void create(Vrmachine vrmachine) throws SQLException{
         String sql = "insert into "+this.table+" (name, cpu, ram, pymachine_id, status, created_at) values (?,?,?,?,?,?)";
 
+
+
         Object[] params = {
                 vrmachine.getName(),
                 vrmachine.getCpu(),
@@ -49,8 +51,36 @@ public class VrmachineDao {
         this.query.update(sql, params);
     }
 
-    public Vrmachine getSumVermachine(int py_id) throws SQLException{
-        String sql = "select sum(powers.power) as power, sum("+this.table+".cpu) as cpu, sum("+this.table+".ram) from "+this.table+" inner join powers on "+this.table+".status=powers.id where "+this.table+".id=?";
-        return this.query.query(sql, new BeanHandler<Vrmachine>(Vrmachine.class),py_id);
+    public Vrmachine getSumVermachine(int py_id, int excludeId) throws SQLException{
+        String sql = "select sum(powers.power) as power, sum("
+                +this.table+".cpu) as cpu, sum("
+                +this.table+".ram) as ram from "+this.table
+                +" inner join powers on "+this.table
+                +".status=powers.id where "+this.table+".pymachine_id=? and "+this.table+".id!=?";
+        Object[] params = {
+                py_id,
+                excludeId
+        };
+        return this.query.query(sql, new BeanHandler<Vrmachine>(Vrmachine.class),params);
+    }
+
+    public void update(Vrmachine vrmachine) throws SQLException{
+        String sql = "update "+ this.table+" set name=?,cpu=?,ram=? where id=?;";
+        Object[] params = {
+                vrmachine.getName(),
+                vrmachine.getCpu(),
+                vrmachine.getRam(),
+                vrmachine.getId()
+        };
+        this.query.update(sql, params);
+    }
+    public void changeStatus(Vrmachine v) throws SQLException {
+        String sql = "update "+ this.table+" set status = ? where id=?;";
+        Object[] params = {
+                v.getStatus(),
+                v.getId()
+        };
+        System.out.println(sql+params[0]+params[1]);
+        this.query.update(sql, params);
     }
 }

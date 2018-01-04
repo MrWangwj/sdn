@@ -36,8 +36,14 @@
         <servlet-name>AddVrServlet</servlet-name>
         <servlet-class>com.sdn.servlet.vrmachines.AddVrServlet</servlet-class>
     </servlet>
-
-
+    <servlet>
+        <servlet-name>EditVrServlet</servlet-name>
+        <servlet-class>com.sdn.servlet.vrmachines.EditVrServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatusServlet</servlet-name>
+        <servlet-class>com.sdn.servlet.vrmachines.ChangeStatusServlet</servlet-class>
+    </servlet>
 
 
 
@@ -74,5 +80,13 @@
     <servlet-mapping>
         <servlet-name>AddVrServlet</servlet-name>
         <url-pattern>/vrmachine/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditVrServlet</servlet-name>
+        <url-pattern>/vrmachine/edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatusServlet</servlet-name>
+        <url-pattern>/vrmachine/change</url-pattern>
     </servlet-mapping>
 </web-app>

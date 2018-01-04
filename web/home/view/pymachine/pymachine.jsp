@@ -9,6 +9,11 @@
             margin: 20px auto;
             display: none;
         }
+        #editVrModal{
+            width: 500px;
+            margin: 20px auto;
+            display: none;
+        }
     </style>
 </rapid:override>
 
@@ -108,14 +113,14 @@
 
                         </td>
                         <td>
-                            <select onchange="myChange" id="select">
-                                <option value="0" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
-                                <option value="1" <c:if test="${ vrmachine.status == 2 }">selected = "selected"</c:if>>休眠</option>
-                                <option value="2" <c:if test="${ vrmachine.status == 3 }">selected = "selected"</c:if>>激活</option>
+                            <select onchange="myChanges(this,${ vrmachine.id })" id="select">
+                                <option value="1" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
+                                <option value="2" <c:if test="${ vrmachine.status == 2 }">selected = "selected"</c:if>>休眠</option>
+                                <option value="3" <c:if test="${ vrmachine.status == 3 }">selected = "selected"</c:if>>激活</option>
                             </select>
                         </td>
                         <td>
-                            <button class="layui-btn layui-btn-normal layui-btn-xs">编辑</button>
+                            <button class="layui-btn layui-btn-normal layui-btn-xs" onclick="editVr(${ vrmachine.id }, '${ vrmachine.name }', ${ vrmachine.cpu }, ${ vrmachine.ram })">编辑</button>
                             <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="myDelete(${ vrmachine.id })">删除</button>
                         </td>
                     </tr>
@@ -149,29 +154,19 @@
 
         window.onload = function () {
 
-
             var  vrmachineNames = [];
             var cpuChartDate = [],ramChartDate = [],powerChartDate = [];
             var restCpu = 64, restRam = 200,restPower = 100 ;
 
-
-            vrmachineNames.push("222");
-            cpuChartDate.push({value: 2, name: "222"});
-            ramChartDate.push({value: 2, name: "222"});
-            powerChartDate.push({value: 0, name: "222"});
 
 
             <c:forEach var="vrmachine" items="${ vrmachines }">
                 vrmachineNames.push("${ vrmachine.name }");
                 cpuChartDate.push({value: ${ vrmachine.cpu }, name: "${ vrmachine.name }"});
                 ramChartDate.push({value: ${ vrmachine.ram }, name: "${ vrmachine.name }"});
-
-
                 powerChartDate.push({value: ${ vrmachine.power }, name: "${ vrmachine.name }"});
-
              </c:forEach>
-
-
+            
             vrmachineNames.push("剩余");
             cpuChartDate.push({value: restCpu, name: "剩余"});
             ramChartDate.push({value: restRam, name: "剩余"});
@@ -277,10 +272,16 @@
                 );
             });
         }
+        function myChanges(opt,id) {
 
-        function myChange() {
-             var a = $("#select").val();
-             console.log(a+"213123");
+            var status = $(opt).val()
+            $.post(
+                '${ pageContext.request.contextPath }/vrmachine/change',
+                { py_id: ${ param.id },id:id,status:status},
+                function (data) {
+                   returnData(data);
+                }
+            )
         }
     </script>
 
@@ -336,6 +337,40 @@
             );
         }
 
+
+        function editVr(id, name, cpu, ram) {
+            $('#editVrId').val(id);
+            $('#editvrName').val(name);
+            $('#editvrCpu').val(cpu);
+            $('#editvrRam').val(ram);
+
+            layer.open({
+                type: 1,
+                title: "编辑虚拟机",
+                closeBtn: 1,
+                shadeClose: true,
+                skin: '#editVrModal',
+                area: ['600px', '300px'],
+                content: $('#editVrModal')
+            });
+        }
+        
+        function setEditVr() {
+            $.post(
+                '${ pageContext.request.contextPath }/vrmachine/edit',
+                {
+                    py_id: ${ param.id },
+                    id: $('#editVrId').val(),
+                    name: $('#editvrName').val(),
+                    cpu: $('#editvrCpu').val(),
+                    ram: $('#editvrRam').val()
+                },
+                function (data) {
+                    returnData(data);
+                }
+            );
+        }
+
         function returnData(date) {
             var obj = JSON.parse(date)[0];
             if(obj.code === 1){
@@ -381,5 +416,37 @@
             </div>
 
     </div>
+
+    <div id="editVrModal">
+        <input type="hidden" id="editVrId" >
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input id="editvrName" type="text" placeholder="请输入虚拟机名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">CPU内核</label>
+            <div class="layui-input-block">
+                <input id="editvrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">RAM容量</label>
+            <div class="layui-input-block">
+                <input id="editvrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" style="float: right" onclick="setEditVr()">保存</button>
+            </div>
+        </div>
+
+    </div>
+
 </rapid:override>
 <%@include file="../layout/layout.jsp"%>
