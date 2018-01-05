@@ -13,6 +13,16 @@
         </rapid:block>
     </title>
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/home/vender/layui/layui/css/layui.css">
+
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        input[type="number"]{
+            -moz-appearance: textfield;
+        }
+    </style>
     <rapid:block name="css">
 
     </rapid:block>
@@ -44,8 +54,8 @@
 
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">设备列表</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">1111</a></dd>
+                    <dl class="layui-nav-child" id="pys">
+
                     </dl>
                 </li>
 
@@ -64,7 +74,7 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © <a href="http://www.marchsoft.cn">三月软件</a>
+        © <a href="http://www.marchsoft.cn">www</a>
     </div>
 </div>
 <script src="${ pageContext.request.contextPath }/home/vender/jquery/jquery-3.2.1.min.js"></script>
@@ -75,6 +85,31 @@
     layui.use('element', function(){
         var element = layui.element;
     });
+</script>
+
+<script>
+
+        $.post(
+            '${ pageContext.request.contextPath }/pymachine/list',
+            {},
+            function (data) {
+                var obj = JSON.parse(data)[0];
+                if(obj.code === 1){
+                    getPy(obj.data);
+                }
+            }
+        );
+
+        
+        function getPy(data) {
+            var html = "";
+
+            for (var i = 0; i < data.length; i++){
+                html += '<dd><a href="${ pageContext.request.contextPath }/home/pymachine/get?id='+data[i].id+'">'+data[i].name+'</a></dd>';
+            }
+            $('#pys').html(html);
+
+        }
 </script>
 
 <rapid:block name="js">

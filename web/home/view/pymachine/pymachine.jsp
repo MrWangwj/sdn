@@ -38,9 +38,16 @@
             </div>
             <div class="layui-col-md4">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">物理机内核数</label>
+                    <label class="layui-form-label">物理机内核</label>
                     <div class="layui-input-block">
-                        <input id="cpu" type="number" placeholder="请输入物理机CPU内核数" autocomplete="off" class="layui-input" value="${ pymachine.cpu }">
+                        <select name="" id="cpu" class="layui-input">
+                            <option value="2" <c:if test="${ pymachine.cpu == 2 }">selected = "selected"</c:if>>2核</option>
+                            <option value="4" <c:if test="${ pymachine.cpu == 4 }">selected = "selected"</c:if>>4核</option>
+                            <option value="8"<c:if test="${ pymachine.cpu == 8 }">selected = "selected"</c:if>>8核</option>
+                            <option value="16"<c:if test="${ pymachine.cpu == 16 }">selected = "selected"</c:if>>16核</option>
+                            <option value="32"<c:if test="${ pymachine.cpu == 32 }">selected = "selected"</c:if>>32核</option>
+                            <option value="64"<c:if test="${ pymachine.cpu == 64 }">selected = "selected"</c:if>>64核</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -52,7 +59,17 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">物理机RAM</label>
                     <div class="layui-input-block">
-                        <input id="ram" type="number" placeholder="请输入物理机内存" autocomplete="off" class="layui-input" value="${ pymachine.ram }">
+                        <select name="" id="ram" class="layui-input">
+                            <option value="2" <c:if test="${ pymachine.ram == 2 }">selected = "selected"</c:if>>2GB</option>
+                            <option value="4" <c:if test="${ pymachine.ram == 4 }">selected = "selected"</c:if>>4GB</option>
+                            <option value="8"<c:if test="${ pymachine.ram == 8 }">selected = "selected"</c:if>>8GB</option>
+                            <option value="16"<c:if test="${ pymachine.ram == 16 }">selected = "selected"</c:if>>16GB</option>
+                            <option value="32"<c:if test="${ pymachine.ram == 32 }">selected = "selected"</c:if>>32GB</option>
+                            <option value="64"<c:if test="${ pymachine.ram == 64 }">selected = "selected"</c:if>>64GB</option>
+                            <option value="128"<c:if test="${ pymachine.ram == 128 }">selected = "selected"</c:if>>128GB</option>
+                            <option value="256"<c:if test="${ pymachine.ram == 256 }">selected = "selected"</c:if>>256GB</option>
+                            <option value="512"<c:if test="${ pymachine.ram == 512 }">selected = "selected"</c:if>>512GB</option>
+                        </select>
                     </div>
                 </div>
 
@@ -62,7 +79,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">物理机电量</label>
                     <div class="layui-input-block">
-                        <input id="power" type="number" placeholder="请输入物理机电量" autocomplete="off" class="layui-input" value="${ pymachine.power }">
+                        <input id="power"  type="number" placeholder="请输入物理机电量" autocomplete="off" class="layui-input" value="${ pymachine.power }">
                     </div>
                 </div>
             </div>
@@ -113,7 +130,7 @@
 
                         </td>
                         <td>
-                            <select onchange="myChanges(this,${ vrmachine.id })" id="select">
+                            <select onchange="myChanges(this,${ vrmachine.id })" id="select" class="layui-input">
                                 <option value="1" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
                                 <option value="2" <c:if test="${ vrmachine.status == 2 }">selected = "selected"</c:if>>休眠</option>
                                 <option value="3" <c:if test="${ vrmachine.status == 3 }">selected = "selected"</c:if>>激活</option>
@@ -306,6 +323,7 @@
                         power: $('#power').val()
                     },
                     function (data) {
+                        console.log(data);
                         returnData(data);
                     }
                 );
@@ -323,6 +341,16 @@
                 area: ['600px', '300px'],
                 content: $('#addVr')
             });
+
+
+            var max = 0;
+
+            <c:forEach var="vrmachine" items="${ vrmachines }">
+                var num = ("${vrmachine.name}").replace(/[^0-9]/ig,"");
+                if(num > max) max = num;
+            </c:forEach>
+
+            $('#vrName').val("虚拟机"+(parseInt(max)+1)+"号");
 
         }
 
@@ -346,8 +374,8 @@
         function editVr(id, name, cpu, ram) {
             $('#editVrId').val(id);
             $('#editvrName').val(name);
-            $('#editvrCpu').val(cpu);
-            $('#editvrRam').val(ram);
+            $('#editvrCpu').find("option[value="+cpu+"]").attr("selected",true);
+            $('#editvrRam').find("option[value="+ram+"]").attr("selected",true);
 
             layer.open({
                 type: 1,
@@ -401,16 +429,35 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">CPU内核</label>
+                <label class="layui-form-label">CPU内核(核)</label>
                 <div class="layui-input-block">
-                    <input id="vrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
+                    <select name="city" class="layui-input" id="vrCpu">
+                        <option value="2">2核</option>
+                        <option value="4">4核</option>
+                        <option value="8">8核</option>
+                        <option value="16">16核</option>
+                        <option value="32">32核</option>
+                        <option value="64">64核</option>
+                    </select>
                 </div>
             </div>
 
+
+
             <div class="layui-form-item">
-                <label class="layui-form-label">RAM容量</label>
+                <label class="layui-form-label">RAM容量(GB)</label>
                 <div class="layui-input-block">
-                    <input id="vrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
+                    <select name="city" class="layui-input layui-unselect" id="vrRam">
+                        <option value="2">2GB</option>
+                        <option value="4">4GB</option>
+                        <option value="8">8GB</option>
+                        <option value="16">16GB</option>
+                        <option value="32">32GB</option>
+                        <option value="64">64GB</option>
+                        <option value="128">128GB</option>
+                        <option value="256">256GB</option>
+                        <option value="512">512GB</option>
+                    </select>
                 </div>
             </div>
 
@@ -431,19 +478,39 @@
             </div>
         </div>
 
+
         <div class="layui-form-item">
-            <label class="layui-form-label">CPU内核</label>
+            <label class="layui-form-label">CPU内核(核)</label>
             <div class="layui-input-block">
-                <input id="editvrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
+                <select name="city" class="layui-input" id="editvrCpu">
+                    <option value="2">2核</option>
+                    <option value="4">4核</option>
+                    <option value="8">8核</option>
+                    <option value="16">16核</option>
+                    <option value="32">32核</option>
+                    <option value="64">64核</option>
+                </select>
             </div>
         </div>
 
+
         <div class="layui-form-item">
-            <label class="layui-form-label">RAM容量</label>
+            <label class="layui-form-label">RAM容量(GB)</label>
             <div class="layui-input-block">
-                <input id="editvrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
+                <select name="city" class="layui-input" id="editvrRam">
+                    <option value="2">2GB</option>
+                    <option value="4">4GB</option>
+                    <option value="8">8GB</option>
+                    <option value="16">16GB</option>
+                    <option value="32">32GB</option>
+                    <option value="64">64GB</option>
+                    <option value="128">128GB</option>
+                    <option value="256">256GB</option>
+                    <option value="512">512GB</option>
+                </select>
             </div>
         </div>
+
 
         <div class="layui-form-item">
             <div class="layui-input-block">

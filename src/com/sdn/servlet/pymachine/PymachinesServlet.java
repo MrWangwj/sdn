@@ -27,7 +27,6 @@ public class PymachinesServlet extends HttpServlet {
             String result=jsonArray.toString();
             response.getWriter().write(result);
         } catch (Exception e) {
-
             e.printStackTrace();
         }
     }
