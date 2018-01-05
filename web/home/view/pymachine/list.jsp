@@ -69,6 +69,30 @@
             var newurl=$("#pymachine").attr("url");
             window.location=newurl;
         }
+        $("#power").keydown(function (e) {
+            var code = parseInt(e.keyCode);
+            if (code >= 96 && code <= 105 || code >= 48 && code <= 57 || code == 8) {
+                return true;
+            } else {
+                return false;
+            }
+        })
+        function onlyNonNegative() {
+            var str=$("#power").val();
+
+            //替换除数字与逗号以外的所有字符。
+            str=str.replace(/[^0-9,]*/g,"");
+            //去掉第一个逗号
+            if (str.substr(0,1)==',') str=str.substr(1);
+            //去掉第二个逗号
+            var reg=/,$/gi;
+            str=str.replace(reg,"");
+
+            if(str>9999999){
+                str=9999999;
+            }
+            $("#power").val(str);
+        }
         $("#add_pumachine").on("click",function () {
             layui.use('layer', function() {
                 //示范一个公告层
@@ -91,22 +115,39 @@
                     '      <input type="text" id="name" lay-verify="title" autocomplete="off" placeholder="请输入物理机名称" class="layui-input">\n' +
                     '    </div>\n' +
                     '  </div>' +
+                    '<div class="layui-form-item">' +
+                    '<label class="layui-form-label">CPU(核)</label>' +
+                        '<div class="layui-input-block">' +
+                            '<select name="interest" lay-filter="aihao" class="layui-input" style="display:block;" id="cpu">' +
+                            '<option value="2">2</option>' +
+                            '<option value="4" >4</option>' +
+                            '<option value="8">8</option>' +
+                            '<option value="16">16</option>' +
+                            '<option value="32">32</option>' +
+                            '<option value="64">64</option>' +
+                            '</select>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="layui-form-item">' +
+                    '<label class="layui-form-label">内存(GB)</label>' +
+                    '<div class="layui-input-block">' +
+                    '<select name="interest" lay-filter="aihao" class="layui-input" style="display:block;" id="ram">' +
+                    '<option value="2">2</option>' +
+                    '<option value="4" >4</option>' +
+                    '<option value="8">8</option>' +
+                    '<option value="16">16</option>' +
+                    '<option value="32">32</option>' +
+                    '<option value="64">64</option>' +
+                    '<option value="128">128</option>' +
+                    '<option value="256">256</option>' +
+                    '<option value="512">512</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '</div>' +
                     '  <div class="layui-form-item">\n' +
-                    '    <label class="layui-form-label">CPU</label>\n' +
+                    '    <label class="layui-form-label">电量(MA)</label>\n' +
                     '    <div class="layui-input-block">\n' +
-                    '      <input type="number" id="cpu" lay-verify="title" autocomplete="off" placeholder="请输入物理机CPU" class="layui-input">\n' +
-                    '    </div>\n' +
-                    '  </div>' +
-                    '  <div class="layui-form-item">\n' +
-                    '    <label class="layui-form-label">内存</label>\n' +
-                    '    <div class="layui-input-block">\n' +
-                    '      <input type="number" id="ram" lay-verify="title" autocomplete="off" placeholder="请输入物理机内存" class="layui-input">\n' +
-                    '    </div>\n' +
-                    '  </div>' +
-                    '  <div class="layui-form-item">\n' +
-                    '    <label class="layui-form-label">电量</label>\n' +
-                    '    <div class="layui-input-block">\n' +
-                    '      <input type="number" id="power" lay-verify="title" autocomplete="off" placeholder="请输入物理机电量" class="layui-input">\n' +
+                    '      <input type="number" id="power" lay-verify="title" min="0" max="7" autocomplete="off" placeholder="请输入物理机电量" class="layui-input" onkeyup="onlyNonNegative();">\n' +
                     '    </div>\n' +
                     '  </div>' +
                     '</form>'+
