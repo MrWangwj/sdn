@@ -113,7 +113,7 @@
 
                         </td>
                         <td>
-                            <select onchange="myChanges(this,${ vrmachine.id })" id="select">
+                            <select onchange="myChanges(this,${ vrmachine.id })" id="select" class="layui-input">
                                 <option value="1" <c:if test="${ vrmachine.status == 1 }">selected = "selected"</c:if>>关闭</option>
                                 <option value="2" <c:if test="${ vrmachine.status == 2 }">selected = "selected"</c:if>>休眠</option>
                                 <option value="3" <c:if test="${ vrmachine.status == 3 }">selected = "selected"</c:if>>激活</option>
@@ -357,7 +357,7 @@
             $('#editVrId').val(id);
             $('#editvrName').val(name);
             $('#editvrCpu').val(cpu);
-            $('#editvrRam').val(ram);
+            $('#editvrRam').find("option[value="+ram+"]").attr("selected",true);
 
             layer.open({
                 type: 1,
@@ -420,7 +420,17 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">RAM容量(GB)</label>
                 <div class="layui-input-block">
-                    <input id="vrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
+                    <select name="city" class="layui-input layui-unselect" id="vrRam">
+                        <option value="2">2GB</option>
+                        <option value="4">4GB</option>
+                        <option value="8">8GB</option>
+                        <option value="16">16GB</option>
+                        <option value="32">32GB</option>
+                        <option value="64">64GB</option>
+                        <option value="128">128GB</option>
+                        <option value="256">256GB</option>
+                        <option value="512">512GB</option>
+                    </select>
                 </div>
             </div>
 
@@ -448,12 +458,24 @@
             </div>
         </div>
 
+
         <div class="layui-form-item">
             <label class="layui-form-label">RAM容量(GB)</label>
             <div class="layui-input-block">
-                <input id="editvrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
+                <select name="city" class="layui-input" id="editvrRam">
+                    <option value="2">2GB</option>
+                    <option value="4">4GB</option>
+                    <option value="8">8GB</option>
+                    <option value="16">16GB</option>
+                    <option value="32">32GB</option>
+                    <option value="64">64GB</option>
+                    <option value="128">128GB</option>
+                    <option value="256">256GB</option>
+                    <option value="512">512GB</option>
+                </select>
             </div>
         </div>
+
 
         <div class="layui-form-item">
             <div class="layui-input-block">

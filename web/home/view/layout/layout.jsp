@@ -64,7 +64,7 @@
 
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © <a href="http://www.marchsoft.cn">三月软件</a>
+        © <a href="http://www.marchsoft.cn">www</a>
     </div>
 </div>
 <script src="${ pageContext.request.contextPath }/home/vender/jquery/jquery-3.2.1.min.js"></script>
