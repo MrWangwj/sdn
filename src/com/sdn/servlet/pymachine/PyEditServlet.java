@@ -1,7 +1,9 @@
 package com.sdn.servlet.pymachine;
 
 import com.sdn.model.Pymachine;
+import com.sdn.model.Vrmachine;
 import com.sdn.service.PymachineService;
+import com.sdn.service.VrmachineService;
 import com.sdn.utils.VenderUtils;
 
 import javax.servlet.ServletException;
@@ -35,7 +37,20 @@ public class PyEditServlet extends HttpServlet {
             pymachine.setRam(ram);
             pymachine.setPower(power);
 
-            System.out.println(name);
+
+
+
+            VrmachineService vrmachineService = new VrmachineService();
+            Vrmachine vrmachine = vrmachineService.getSumVermachine(id, 0);
+
+            if(vrmachine.getCpu() > cpu){
+                response.getWriter().write(VenderUtils.returnToJson(0,"CPU核数小于虚拟机总数，请修改虚拟机后再操作", null));
+                return;
+            }else if (vrmachine.getRam() > ram){
+                response.getWriter().write(VenderUtils.returnToJson(0,"RAM容量小于虚拟机总数，请修改虚拟机后再操作", null));
+                return;
+            }
+
 
             PymachineService pymachineService = new PymachineService();
             pymachineService.update(pymachine);

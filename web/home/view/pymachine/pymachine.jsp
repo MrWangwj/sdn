@@ -38,9 +38,16 @@
             </div>
             <div class="layui-col-md4">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">物理机内核数</label>
+                    <label class="layui-form-label">物理机内核</label>
                     <div class="layui-input-block">
-                        <input id="cpu" type="number" placeholder="请输入物理机CPU内核数" autocomplete="off" class="layui-input" value="${ pymachine.cpu }">
+                        <select name="" id="cpu" class="layui-input">
+                            <option value="2" <c:if test="${ pymachine.cpu == 2 }">selected = "selected"</c:if>>2核</option>
+                            <option value="4" <c:if test="${ pymachine.cpu == 4 }">selected = "selected"</c:if>>4核</option>
+                            <option value="8"<c:if test="${ pymachine.cpu == 8 }">selected = "selected"</c:if>>8核</option>
+                            <option value="16"<c:if test="${ pymachine.cpu == 16 }">selected = "selected"</c:if>>16核</option>
+                            <option value="32"<c:if test="${ pymachine.cpu == 32 }">selected = "selected"</c:if>>32核</option>
+                            <option value="64"<c:if test="${ pymachine.cpu == 64 }">selected = "selected"</c:if>>64核</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -52,7 +59,17 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">物理机RAM</label>
                     <div class="layui-input-block">
-                        <input id="ram" type="number" placeholder="请输入物理机内存" autocomplete="off" class="layui-input" value="${ pymachine.ram }">
+                        <select name="" id="ram" class="layui-input">
+                            <option value="2" <c:if test="${ pymachine.ram == 2 }">selected = "selected"</c:if>>2GB</option>
+                            <option value="4" <c:if test="${ pymachine.ram == 4 }">selected = "selected"</c:if>>4GB</option>
+                            <option value="8"<c:if test="${ pymachine.ram == 8 }">selected = "selected"</c:if>>8GB</option>
+                            <option value="16"<c:if test="${ pymachine.ram == 16 }">selected = "selected"</c:if>>16GB</option>
+                            <option value="32"<c:if test="${ pymachine.ram == 32 }">selected = "selected"</c:if>>32GB</option>
+                            <option value="64"<c:if test="${ pymachine.ram == 64 }">selected = "selected"</c:if>>64GB</option>
+                            <option value="128"<c:if test="${ pymachine.ram == 128 }">selected = "selected"</c:if>>128GB</option>
+                            <option value="256"<c:if test="${ pymachine.ram == 256 }">selected = "selected"</c:if>>256GB</option>
+                            <option value="512"<c:if test="${ pymachine.ram == 512 }">selected = "selected"</c:if>>512GB</option>
+                        </select>
                     </div>
                 </div>
 
@@ -62,7 +79,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">物理机电量</label>
                     <div class="layui-input-block">
-                        <input id="power" type="number" placeholder="请输入物理机电量" autocomplete="off" class="layui-input" value="${ pymachine.power }">
+                        <input id="power"  type="number" placeholder="请输入物理机电量" autocomplete="off" class="layui-input" value="${ pymachine.power }">
                     </div>
                 </div>
             </div>
@@ -306,6 +323,7 @@
                         power: $('#power').val()
                     },
                     function (data) {
+                        console.log(data);
                         returnData(data);
                     }
                 );

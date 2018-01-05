@@ -13,6 +13,16 @@
         </rapid:block>
     </title>
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/home/vender/layui/layui/css/layui.css">
+
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        input[type="number"]{
+            -moz-appearance: textfield;
+        }
+    </style>
     <rapid:block name="css">
 
     </rapid:block>
