@@ -42,12 +42,12 @@
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
                 <li class="layui-nav-item"><a href="${ pageContext.request.contextPath }/home/pymachines">设备管理</a></li>
 
-                <%--<li class="layui-nav-item layui-nav-itemed">--%>
-                    <%--<a class="" href="javascript:;">test</a>--%>
-                    <%--<dl class="layui-nav-child">--%>
-                        <%--<dd><a href="javascript:;">1111</a></dd>--%>
-                    <%--</dl>--%>
-                <%--</li>--%>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">设备列表</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">1111</a></dd>
+                    </dl>
+                </li>
 
             </ul>
         </div>
