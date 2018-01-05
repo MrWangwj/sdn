@@ -35,7 +35,6 @@ public class PymachineDao {
 
     public int addPymachine(Pymachine pymachine) throws SQLException {
         String sql = " insert into pymachines(name,cpu,ram,power,created_at) values(?,?,?,?,?) ";
-        System.out.println(pymachine.getName());
         Object[] params = {pymachine.getName(),pymachine.getCpu(),pymachine.getRam(),pymachine.getPower(),System.currentTimeMillis()};
         return query.update(sql, params);
     }
