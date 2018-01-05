@@ -324,6 +324,16 @@
                 content: $('#addVr')
             });
 
+
+            var max = 0;
+
+            <c:forEach var="vrmachine" items="${ vrmachines }">
+                var num = ("${vrmachine.name}").replace(/[^0-9]/ig,"");
+                if(num > max) max = num;
+            </c:forEach>
+
+            $('#vrName').val("虚拟机"+(parseInt(max)+1)+"号");
+
         }
 
         function addVr() {
@@ -401,14 +411,14 @@
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">CPU内核</label>
+                <label class="layui-form-label">CPU内核(核)</label>
                 <div class="layui-input-block">
                     <input id="vrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">RAM容量</label>
+                <label class="layui-form-label">RAM容量(GB)</label>
                 <div class="layui-input-block">
                     <input id="vrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
                 </div>
@@ -432,14 +442,14 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">CPU内核</label>
+            <label class="layui-form-label">CPU内核(核)</label>
             <div class="layui-input-block">
                 <input id="editvrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">RAM容量</label>
+            <label class="layui-form-label">RAM容量(GB)</label>
             <div class="layui-input-block">
                 <input id="editvrRam" type="number" placeholder="请输入虚拟机RAM容量" autocomplete="off" class="layui-input">
             </div>

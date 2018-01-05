@@ -70,6 +70,16 @@
             window.location=newurl;
         }
         $("#add_pumachine").on("click",function () {
+
+            var max = 0;
+
+            <c:forEach var="pymachine" items="${ pymachineList }">
+                var num = ("${pymachine.name}").replace(/[^0-9]/ig,"");
+                if(num > max) max = num;
+            </c:forEach>
+
+            var name = "物理机"+(parseInt(max)+1)+"号";
+
             layui.use('layer', function() {
                 //示范一个公告层
                 layer.open({
@@ -88,7 +98,7 @@
                     '  <div class="layui-form-item">\n' +
                     '    <label class="layui-form-label">名称</label>\n' +
                     '    <div class="layui-input-block">\n' +
-                    '      <input type="text" id="name" lay-verify="title" autocomplete="off" placeholder="请输入物理机名称" class="layui-input">\n' +
+                    '      <input type="text" id="name" lay-verify="title" autocomplete="off" placeholder="请输入物理机名称" value="'+name+'" class="layui-input">\n' +
                     '    </div>\n' +
                     '  </div>' +
                     '  <div class="layui-form-item">\n' +

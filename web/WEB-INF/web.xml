@@ -26,7 +26,10 @@
         <servlet-name>AddPymachineServlet</servlet-name>
         <servlet-class>com.sdn.servlet.pymachine.AddPymachineServlet</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>PyListServlet</servlet-name>
+        <servlet-class>com.sdn.servlet.pymachine.PyListServlet</servlet-class>
+    </servlet>
 
     <servlet>
         <servlet-name>DeleteServlet</servlet-name>
@@ -71,6 +74,11 @@
         <servlet-name>AddPymachineServlet</servlet-name>
         <url-pattern>/pymachine/AddPymachineServlet</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PyListServlet</servlet-name>
+        <url-pattern>/pymachine/list</url-pattern>
+    </servlet-mapping>
+
 
 
     <servlet-mapping>
