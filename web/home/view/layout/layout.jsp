@@ -40,14 +40,14 @@
         <div class="layui-side-scroll">
             <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
             <ul class="layui-nav layui-nav-tree"  lay-filter="test">
-                <li class="layui-nav-item"><a href="${ pageContext.request.contextPath }/home/view/pymachine/list.jsp">设备管理</a></li>
+                <li class="layui-nav-item"><a href="${ pageContext.request.contextPath }/home/pymachines">设备管理</a></li>
 
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">test</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">1111</a></dd>
-                    </dl>
-                </li>
+                <%--<li class="layui-nav-item layui-nav-itemed">--%>
+                    <%--<a class="" href="javascript:;">test</a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd><a href="javascript:;">1111</a></dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
 
             </ul>
         </div>
