@@ -164,10 +164,6 @@
                 cpuChartDate.push({value: ${ vrmachine.cpu }, name: "${ vrmachine.name }"});
                 ramChartDate.push({value: ${ vrmachine.ram }, name: "${ vrmachine.name }"});
                 powerChartDate.push({value: ${ vrmachine.power }, name: "${ vrmachine.name }"});
-<<<<<<< HEAD
-             </c:forEach>
-            
-=======
 
 
                 restCpu -= ${ vrmachine.cpu };
@@ -176,7 +172,6 @@
 
             </c:forEach>
 
->>>>>>> 0688d41e98734cf724d8029029e121135750f311
             vrmachineNames.push("剩余");
             cpuChartDate.push({value: restCpu, name: "剩余"});
             ramChartDate.push({value: restRam, name: "剩余"});
