@@ -91,6 +91,9 @@
             if(str>9999999){
                 str=9999999;
             }
+            if(str==""){
+                str=0;
+            }
             $("#power").val(str);
         }
         $("#add_pumachine").on("click",function () {
@@ -157,7 +160,7 @@
                     '  <div class="layui-form-item">\n' +
                     '    <label class="layui-form-label">电量(MA)</label>\n' +
                     '    <div class="layui-input-block">\n' +
-                    '      <input type="number" id="power" lay-verify="title" min="0" max="7" autocomplete="off" placeholder="请输入物理机电量" class="layui-input" onkeyup="onlyNonNegative();">\n' +
+                    '      <input type="number"  value="0" id="power" lay-verify="title" min="0" max="7" autocomplete="off" placeholder="请输入物理机电量" class="layui-input" onkeyup="onlyNonNegative();">\n' +
                     '    </div>\n' +
                     '  </div>' +
                     '</form>'+
