@@ -356,7 +356,7 @@
         function editVr(id, name, cpu, ram) {
             $('#editVrId').val(id);
             $('#editvrName').val(name);
-            $('#editvrCpu').val(cpu);
+            $('#editvrCpu').find("option[value="+cpu+"]").attr("selected",true);
             $('#editvrRam').find("option[value="+ram+"]").attr("selected",true);
 
             layer.open({
@@ -413,9 +413,18 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">CPU内核(核)</label>
                 <div class="layui-input-block">
-                    <input id="vrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
+                    <select name="city" class="layui-input" id="vrCpu">
+                        <option value="2">2核</option>
+                        <option value="4">4核</option>
+                        <option value="8">8核</option>
+                        <option value="16">16核</option>
+                        <option value="32">32核</option>
+                        <option value="64">64核</option>
+                    </select>
                 </div>
             </div>
+
+
 
             <div class="layui-form-item">
                 <label class="layui-form-label">RAM容量(GB)</label>
@@ -451,10 +460,18 @@
             </div>
         </div>
 
+
         <div class="layui-form-item">
             <label class="layui-form-label">CPU内核(核)</label>
             <div class="layui-input-block">
-                <input id="editvrCpu" type="number" placeholder="请输入虚拟机CPU内核" autocomplete="off" class="layui-input">
+                <select name="city" class="layui-input" id="editvrCpu">
+                    <option value="2">2核</option>
+                    <option value="4">4核</option>
+                    <option value="8">8核</option>
+                    <option value="16">16核</option>
+                    <option value="32">32核</option>
+                    <option value="64">64核</option>
+                </select>
             </div>
         </div>
 
